@@ -19,7 +19,7 @@ public:
 	GameWindow()
 		: Window(800, 600)
 	{
-		set_caption("Github Test");
+		set_caption("Github Testi");
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
