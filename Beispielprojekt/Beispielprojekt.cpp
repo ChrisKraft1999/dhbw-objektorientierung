@@ -19,7 +19,7 @@ public:
 	GameWindow()
 		: Window(800, 600)
 	{
-		set_caption("Github Testi");
+		set_caption("Github Testi"); // Name lautet Qwertz
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
