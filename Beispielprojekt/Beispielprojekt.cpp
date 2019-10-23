@@ -19,7 +19,7 @@ public:
 	GameWindow()
 		: Window(800, 600)
 	{
-		set_caption("qwertz");
+		set_caption("Github Test");
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
