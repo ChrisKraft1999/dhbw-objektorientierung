@@ -23,6 +23,7 @@ public:
 		this-> x_pos = x;
 		this-> y_pos = y;
 	}
+
 	Figur(std::string dateiname) : bild(dateiname)
 	{}
 };
@@ -48,6 +49,9 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+		if (input().down(KB_W)) {
+			Gegner1.y_pos++;
+		}
 	}
 };
 
