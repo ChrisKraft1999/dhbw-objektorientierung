@@ -32,10 +32,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Beispielprojekt.cpp">
+    <ClCompile Include="Vektor2d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vektor2d.cpp">
+    <ClCompile Include="Spiel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

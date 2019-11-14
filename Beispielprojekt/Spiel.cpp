@@ -12,6 +12,23 @@
 // Simulationsgeschwindigkeit
 const double DT = 100.0;
 
+class Figur {
+public:
+	int x_pos;
+	int y_pos;
+	int leben;
+	Gosu::Image bild;
+
+	Figur() : bild()
+	
+	{}
+};
+
+class Spieler : public Figur {
+
+};
+
+
 class GameWindow : public Gosu::Window
 {
 public:
@@ -19,7 +36,7 @@ public:
 	GameWindow()
 		: Window(800, 600)
 	{
-		set_caption("Github Testi"); // Name lautet nicht Qwertz
+		set_caption("Github Test"); // Name lautet nicht Qwertz
 	}
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
