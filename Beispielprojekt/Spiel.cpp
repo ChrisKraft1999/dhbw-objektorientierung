@@ -24,26 +24,29 @@ public:
 	int leben;
 	Gosu::Image bild;
 	void positioniere(int x = 100, int y = 100) {
-		this-> x_laenge = bild.width();
-		this-> y_laenge = bild.height();
+		this-> x_laenge = bild.width(); // holt Figurbreite
+		this-> y_laenge = bild.height(); // holt Figurhoehe
 		if (x >= (x_groesse_rahmen - x_laenge)) {
 			x = x_groesse_rahmen - x_laenge;
-		}
+		} // Block rechten Rand
 		if (x <= 0) {
 			x = 0;
-		}
+		} // Block linken Rand
 		if (y >= (y_groesse_rahmen - y_laenge)) {
 			y = y_groesse_rahmen - y_laenge;
-		}
+		} // Blockt unteren Rand
 		if (y <= 0) {
 			y = 0;
-		}
+		} // Blockt oberen Rand
 		this-> x_pos = x;
 		this-> y_pos = y;
 	}
 	void leben_geben(int l = 2) {
 		this->leben = l;
-	}
+	} // Legt Leben der Figur fest
+	void treffer() {
+		this-> leben = leben - 1;
+	} // reduziert das Leben einer Figur um 1
 
 	Figur(std::string dateiname) : bild(dateiname)
 	{}
@@ -80,6 +83,8 @@ public:
 	{
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 		Spieler.positioniere(275, 725); // Spieler spawnen
+		
+		// Figuren existent machen
 		Spieler.leben_geben(10);
 		Gegner1.leben_geben();
 		Gegner2.leben_geben();
@@ -92,7 +97,7 @@ public:
 		Gegner9.leben_geben();
 		Gegner10.leben_geben();
 		Gegner11.leben_geben();
-		Gegner12.leben_geben();	// Figuren existent machen
+		Gegner12.leben_geben();	
 	}
 	Figur Spieler, Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12;
 
@@ -157,6 +162,8 @@ public:
 		Gegner11.positioniere(500, 0);
 		Gegner12.positioniere(550, 0);
 		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
+		
+		// Postion von Spieler mit w,a,s,d anpassen
 		if (input().down(Gosu::Button::Button(26))) {
 			Spieler.y_pos -= 2;
 		}
