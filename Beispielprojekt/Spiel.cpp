@@ -26,11 +26,17 @@ public:
 	void positioniere(int x = 100, int y = 100) {
 		this-> x_laenge = bild.width();
 		this-> y_laenge = bild.height();
-		if (x > (x_groesse_rahmen - x_laenge)) {
+		if (x >= (x_groesse_rahmen - x_laenge)) {
 			x = x_groesse_rahmen - x_laenge;
 		}
-		if (y > (y_groesse_rahmen - y_laenge)) {
+		if (x <= 0) {
+			x = 0;
+		}
+		if (y >= (y_groesse_rahmen - y_laenge)) {
 			y = y_groesse_rahmen - y_laenge;
+		}
+		if (y <= 0) {
+			y = 0;
 		}
 		this-> x_pos = x;
 		this-> y_pos = y;
@@ -69,7 +75,7 @@ public:
 		Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
 		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
 	}
-
+	
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
