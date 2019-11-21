@@ -69,7 +69,7 @@ public:
 	}
 
 	void update() {
-		y_pos -= 2;
+		y_pos -= 5;
 	}
 };
 
@@ -110,9 +110,11 @@ public:
 		Gegner11.leben_geben();
 		Gegner12.leben_geben();	
 	}
-	Figur Spieler, Gegner1;
 	Schuss schuss1;
 	Figur Spieler, Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12;
+	std::vector<Schuss> s;
+	int i;
+	
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
