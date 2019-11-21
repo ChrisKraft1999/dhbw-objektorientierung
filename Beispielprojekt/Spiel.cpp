@@ -47,12 +47,23 @@ public:
 };
 
 class Schuss {
+public:
 	int x_pos;
 	int y_pos;
 	
-	void schiesse(int x, int y) {
-		this-> x_pos = x;
-		this-> y_pos = y;
+	Schuss(int x_pos, int y_pos) {
+		this->x_pos = x_pos;
+		this->y_pos = y_pos;
+	}
+	Schuss() 
+	{};
+
+	void draw() {
+		Gosu::Graphics::draw_rect(x_pos, y_pos, 2, 10, Gosu::Color::RED, 0.0);
+	}
+
+	void update() {
+		y_pos -= 2;
 	}
 };
 
@@ -68,6 +79,7 @@ public:
 		Spieler.positioniere(275, 800); // Spieler Spawnen
 	}
 	Figur Spieler, Gegner1;
+	Schuss schuss1;
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
@@ -75,6 +87,7 @@ public:
 	void draw() override {
 		Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
 		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
+		schuss1.draw();
 	}
 	
 	// Wird 60x pro Sekunde aufgerufen
@@ -94,6 +107,11 @@ public:
 		if (input().down(Gosu::Button::Button(7))) {
 			Spieler.x_pos += 2;
 		}
+		if (input().down(Gosu::MS_LEFT)) {
+			schuss1.x_pos = Spieler.x_pos + 24;
+			schuss1.y_pos = Spieler.y_pos;
+		}
+		schuss1.update();
 	};
 };
 	// C++ Hauptprogramm
