@@ -23,7 +23,7 @@ public:
 	int y_laenge;
 	int leben;
 	Gosu::Image bild;
-	void positioniere(int x, int y) {
+	void positioniere(int x = 100, int y = 100) {
 		this-> x_laenge = bild.width();
 		this-> y_laenge = bild.height();
 		if (x > (x_groesse_rahmen - x_laenge)) {
@@ -40,6 +40,15 @@ public:
 	{}
 };
 
+class Schuss {
+	int x_pos;
+	int y_pos;
+	
+	void schiesse(int x, int y) {
+		this->x_pos = x;
+		this->y_pos = y;
+	}
+};
 
 class GameWindow : public Gosu::Window
 {
@@ -54,24 +63,34 @@ public:
 	// wird bis zu 60x pro Sekunde aufgerufen.
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
 	// dann werden `draw` Aufrufe ausgelassen und die Framerate sinkt
-	void draw() override{
+	void draw() override {
 		Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
 	}
 
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-		if (input().down(KB_W)) {
-			Gegner1.y_pos++;
+		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
+		if (input().down(Gosu::Button::Button(26))) {
+			Gegner1.y_pos -= 2;
 		}
-	void update() override{
-		Gegner1.positioniere(100, 100);
-	}
+		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
+		if (input().down(Gosu::Button::Button(22))) {
+			Gegner1.y_pos += 2;
+		}
+		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
+		if (input().down(Gosu::Button::Button(4))) {
+			Gegner1.x_pos -= 2;
+		}
+		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
+		if (input().down(Gosu::Button::Button(7))) {
+			Gegner1.x_pos += 2;
+		}
+	};
 };
-
-// C++ Hauptprogramm
-int main()
-{
-	GameWindow window;
-	window.show();
-}
+	// C++ Hauptprogramm
+	int main()
+	{
+		GameWindow window;
+		window.show();
+	}
