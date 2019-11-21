@@ -42,7 +42,7 @@ public:
 		this-> y_pos = y;
 	}
 
-	Figur(std::string dateiname, int x_pos, int y_pos) : bild(dateiname)
+	Figur(std::string dateiname) : bild(dateiname)
 	{}
 };
 
@@ -61,8 +61,8 @@ class GameWindow : public Gosu::Window
 public:
 	GameWindow()
 		: Window(x_groesse_rahmen, y_groesse_rahmen)
-		,Gegner1("GegnerTyp1.png", 275, 100)
-		,Spieler("SpielerTyp1.png", 275, 800)
+		,Gegner1("GegnerTyp1.png")
+		,Spieler("SpielerTyp1.png")
 	{
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 	}
