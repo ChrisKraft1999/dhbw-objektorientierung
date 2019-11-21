@@ -51,8 +51,8 @@ class Schuss {
 	int y_pos;
 	
 	void schiesse(int x, int y) {
-		this->x_pos = x;
-		this->y_pos = y;
+		this-> x_pos = x;
+		this-> y_pos = y;
 	}
 };
 
