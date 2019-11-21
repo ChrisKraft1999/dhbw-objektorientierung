@@ -45,27 +45,28 @@ class GameWindow : public Gosu::Window
 {
 public:
 	GameWindow()
-		: Window(x_groesse_rahmen, y_groesse_rahmen), Gegner1("GegnerTyp1.png")
+		: Window(x_groesse_rahmen, y_groesse_rahmen)
+		,Gegner1("GegnerTyp1.png")
+		,Spieler("SpielerTyp1.png")
 	{
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 	}
-	Figur Gegner1;
+	Figur Spieler, Gegner1;
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
 	// dann werden `draw` Aufrufe ausgelassen und die Framerate sinkt
 	void draw() override{
 		Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
+		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
 	}
 
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-		if (input().down(KB_W)) {
-			Gegner1.y_pos++;
-		}
-	void update() override{
 		Gegner1.positioniere(100, 100);
+		Spieler.positioniere(275, 800);
+		
 	}
 };
 
