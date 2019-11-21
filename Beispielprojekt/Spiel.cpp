@@ -41,6 +41,9 @@ public:
 		this-> x_pos = x;
 		this-> y_pos = y;
 	}
+	void leben_geben(int l = 2) {
+		this->leben = l;
+	}
 
 	Figur(std::string dateiname) : bild(dateiname)
 	{}
@@ -76,7 +79,20 @@ public:
 		,Spieler("SpielerTyp1.png")
 	{
 		set_caption("Github Test"); // Name lautet nicht Qwertz
-		Spieler.positioniere(275, 800); // Spieler spawnen
+		Spieler.positioniere(275, 725); // Spieler spawnen
+		Spieler.leben_geben(10);
+		Gegner1.leben_geben();
+		Gegner2.leben_geben();
+		Gegner3.leben_geben();
+		Gegner4.leben_geben();
+		Gegner5.leben_geben();
+		Gegner6.leben_geben();
+		Gegner7.leben_geben();
+		Gegner8.leben_geben();
+		Gegner9.leben_geben();
+		Gegner10.leben_geben();
+		Gegner11.leben_geben();
+		Gegner12.leben_geben();	// Figuren existent machen
 	}
 	Figur Spieler, Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12;
 
@@ -84,19 +100,45 @@ public:
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
 	// dann werden `draw` Aufrufe ausgelassen und die Framerate sinkt
 	void draw() override {
-		Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
-		Gegner2.bild.draw(Gegner2.x_pos, Gegner2.y_pos, 0.0);
-		Gegner3.bild.draw(Gegner3.x_pos, Gegner3.y_pos, 0.0);
-		Gegner4.bild.draw(Gegner4.x_pos, Gegner4.y_pos, 0.0);
-		Gegner5.bild.draw(Gegner5.x_pos, Gegner5.y_pos, 0.0);
-		Gegner6.bild.draw(Gegner6.x_pos, Gegner6.y_pos, 0.0);
-		Gegner7.bild.draw(Gegner7.x_pos, Gegner7.y_pos, 0.0);
-		Gegner8.bild.draw(Gegner8.x_pos, Gegner8.y_pos, 0.0);
-		Gegner9.bild.draw(Gegner9.x_pos, Gegner9.y_pos, 0.0);
-		Gegner10.bild.draw(Gegner10.x_pos, Gegner10.y_pos, 0.0);
-		Gegner11.bild.draw(Gegner11.x_pos, Gegner11.y_pos, 0.0);
-		Gegner12.bild.draw(Gegner12.x_pos, Gegner12.y_pos, 0.0);
-		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
+		if (Gegner1.leben != 0) {
+			Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner2.leben != 0) {
+			Gegner2.bild.draw(Gegner2.x_pos, Gegner2.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner3.leben != 0) {
+			Gegner3.bild.draw(Gegner3.x_pos, Gegner3.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner4.leben != 0) {
+			Gegner4.bild.draw(Gegner4.x_pos, Gegner4.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner5.leben != 0) {
+			Gegner5.bild.draw(Gegner5.x_pos, Gegner5.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner6.leben != 0) {
+			Gegner6.bild.draw(Gegner6.x_pos, Gegner6.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner7.leben != 0) {
+			Gegner7.bild.draw(Gegner7.x_pos, Gegner7.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner8.leben != 0) {
+			Gegner8.bild.draw(Gegner8.x_pos, Gegner8.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner9.leben != 0) {
+			Gegner9.bild.draw(Gegner9.x_pos, Gegner9.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner10.leben != 0) {
+			Gegner10.bild.draw(Gegner10.x_pos, Gegner10.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner11.leben != 0) {
+			Gegner11.bild.draw(Gegner11.x_pos, Gegner11.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Gegner12.leben != 0) {
+			Gegner12.bild.draw(Gegner12.x_pos, Gegner12.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
+		if (Spieler.leben != 0) {
+			Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
+		} // Zeichenen wenn Leben vorhanden
 	}
 	
 	// Wird 60x pro Sekunde aufgerufen
