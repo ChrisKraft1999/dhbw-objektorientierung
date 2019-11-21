@@ -65,6 +65,7 @@ public:
 		,Spieler("SpielerTyp1.png")
 	{
 		set_caption("Github Test"); // Name lautet nicht Qwertz
+		Spieler.positioniere(275, 800); // Spieler Spawnen
 	}
 	Figur Spieler, Gegner1;
 
