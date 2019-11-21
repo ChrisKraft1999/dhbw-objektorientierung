@@ -36,7 +36,7 @@ public:
 		this-> y_pos = y;
 	}
 
-	Figur(std::string dateiname) : bild(dateiname)
+	Figur(std::string dateiname, int x_pos, int y_pos) : bild(dateiname)
 	{}
 };
 
@@ -45,8 +45,8 @@ class Schuss {
 	int y_pos;
 	
 	void schiesse(int x, int y) {
-		this->x_pos = x;
-		this->y_pos = y;
+		this-> x_pos = x;
+		this-> y_pos = y;
 	}
 };
 
@@ -55,8 +55,8 @@ class GameWindow : public Gosu::Window
 public:
 	GameWindow()
 		: Window(x_groesse_rahmen, y_groesse_rahmen)
-		,Gegner1("GegnerTyp1.png")
-		,Spieler("SpielerTyp1.png")
+		,Gegner1("GegnerTyp1.png", 275, 100)
+		,Spieler("SpielerTyp1.png", 275, 800)
 	{
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 	}
@@ -74,6 +74,7 @@ public:
 	void update() override
 	{
 		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
+		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
 		if (input().down(Gosu::Button::Button(26))) {
 			Spieler.y_pos -= 2;
 		}
