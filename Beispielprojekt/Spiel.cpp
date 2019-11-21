@@ -75,19 +75,16 @@ public:
 	{
 		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
 		if (input().down(Gosu::Button::Button(26))) {
-			Gegner1.y_pos -= 2;
+			Spieler.y_pos -= 2;
 		}
-		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
 		if (input().down(Gosu::Button::Button(22))) {
-			Gegner1.y_pos += 2;
+			Spieler.y_pos += 2;
 		}
-		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
 		if (input().down(Gosu::Button::Button(4))) {
-			Gegner1.x_pos -= 2;
+			Spieler.x_pos -= 2;
 		}
-		Gegner1.positioniere(Gegner1.x_pos, Gegner1.y_pos);
 		if (input().down(Gosu::Button::Button(7))) {
-			Gegner1.x_pos += 2;
+			Spieler.x_pos += 2;
 		}
 	};
 };
