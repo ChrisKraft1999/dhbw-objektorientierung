@@ -143,16 +143,8 @@ public:
 			Schussliste.back().x_pos = Spieler.x_pos + 24;
 			Schussliste.back().y_pos = Spieler.y_pos;
 		}
-		//schuss1.update();
 		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
 			i->update();
-		}
-		schuss1.update();
-
-		cnt++;
-		if (cnt == 120) {
-
-			cnt = 0;
 		}
 	};
 };
