@@ -21,7 +21,7 @@ public:
 	double y_pos;
 	int x_laenge;
 	int y_laenge;
-	int leben = 2;
+	int leben = 1;
 	Gosu::Image bild;
 	void positioniere(double x = 100, double y = 100) {
 		this-> x_laenge = bild.width(); // holt Figurbreite
@@ -149,6 +149,22 @@ public:
 		}
 		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
 			i->update();
+		}
+
+		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
+			auto j = Gegnerliste_1.begin();
+			while ( j != Gegnerliste_1.end()) {
+				if (i->x_pos >= j->x_pos && i->x_pos <= j->x_pos + j->x_laenge) {
+					if (i->y_pos <= j->y_pos + j->y_laenge && i->y_pos >= j->y_pos) {
+						j->treffer();
+						if (j->leben == 0) {
+							j = Gegnerliste_1.erase(j);
+							continue;
+						}
+					}
+				}
+				j++;
+			}
 		}
 	};
 };
