@@ -77,8 +77,7 @@ class GameWindow : public Gosu::Window
 {
 	Schuss schuss1;
 	Figur Spieler;
-	//Figur Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12;
-	std::list<Figur> Gegnerliste_1;// = { Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12 };
+	std::list<Figur> Gegnerliste_1;
 	std::vector<Schuss> s;
 	int i = 0;
 	int Anzahl_Gegner = 12;
@@ -110,8 +109,6 @@ public:
 			i->bild.draw(i->x_pos, i->y_pos, 0.0);
 		}
 		
-
-		//Gegner1.bild.draw(Gegner1.x_pos, Gegner1.y_pos, 0.0);
 		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
 		schuss1.draw();
 	}
