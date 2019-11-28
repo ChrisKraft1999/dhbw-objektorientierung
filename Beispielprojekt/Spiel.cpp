@@ -151,20 +151,37 @@ public:
 			i->update();
 		}
 
-		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
+		auto i = Schussliste.begin();
+		while ( i != Schussliste.end()) {
 			auto j = Gegnerliste_1.begin();
-			while ( j != Gegnerliste_1.end()) {
+			
+			
+			while ( j != Gegnerliste_1.end() && i != Schussliste.end()) {
+				//std::cout << "Start gegnerschleife" << std::endl;
 				if (i->x_pos >= j->x_pos && i->x_pos <= j->x_pos + j->x_laenge) {
 					if (i->y_pos <= j->y_pos + j->y_laenge && i->y_pos >= j->y_pos) {
 						j->treffer();
+						i = Schussliste.erase(i);
+						//std::cout << "i==end? " << int(i == Schussliste.end()) << std::endl;
 						if (j->leben == 0) {
+						//	std::cout << "vor Gegner lösachen" << std::endl;
 							j = Gegnerliste_1.erase(j);
 							continue;
 						}
+						//std::cout << "Nach Gegner lösachen" << std::endl;
 					}
 				}
+				else if (i->y_pos <= 0) {
+					i = Schussliste.erase(i);
+				}
+				//std::cout << "Vor j++" << std::endl;
 				j++;
+				//std::cout << "Nach j++" << std::endl;
 			}
+			//std::cout << "Vor i++" << std::endl;
+			if (i != Schussliste.end()) { i++; }
+			//i++;
+			//std::cout << "i==end? nach i++ " << int(i == Schussliste.end()) << std::endl;
 		}
 	};
 };
