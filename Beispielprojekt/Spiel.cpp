@@ -21,7 +21,7 @@ public:
 	double y_pos;
 	int x_laenge;
 	int y_laenge;
-	int leben = 2;
+	int leben = 1;
 	Gosu::Image bild;
 	void positioniere(double x = 100, double y = 100) {
 		this-> x_laenge = bild.width(); // holt Figurbreite
