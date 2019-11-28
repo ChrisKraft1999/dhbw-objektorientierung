@@ -75,10 +75,9 @@ public:
 
 class GameWindow : public Gosu::Window
 {
-	Schuss schuss1;
 	Figur Spieler;
 	std::list<Figur> Gegnerliste_1;
-	std::vector<Schuss> s;
+	std::list<Schuss> Schussliste;
 	int i = 0;
 	int Anzahl_Gegner = 12;
 
@@ -108,10 +107,11 @@ public:
 		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
 			i->bild.draw(i->x_pos, i->y_pos, 0.0);
 		}
-		
+		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
+			i->draw();
+		}
 		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
-		schuss1.draw();
-	}
+		}
 	
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
@@ -128,16 +128,22 @@ public:
 		}
 		if (input().down(Gosu::Button::Button(4))) {
 			Spieler.x_pos -= 2;
+
 		}
 		if (input().down(Gosu::Button::Button(7))) {
 			Spieler.x_pos += 2;
 		}
 		// Schießen
 		if (input().down(Gosu::MS_LEFT)) {
-			schuss1.x_pos = Spieler.x_pos + 24;
-			schuss1.y_pos = Spieler.y_pos;
+			Schussliste.push_back(Schuss());
+			Schussliste.back().x_pos = Spieler.x_pos + 24;
+			Schussliste.back().y_pos = Spieler.y_pos;
 		}
-		schuss1.update();
+		//schuss1.update();
+		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
+			i->update();
+		}
+
 	};
 };
 	// C++ Hauptprogramm
