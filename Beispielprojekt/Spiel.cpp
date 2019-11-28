@@ -112,6 +112,9 @@ public:
 	}
 	Schuss schuss1;
 	Figur Spieler, Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12;
+	std::vector<Schuss> s;
+	int i = 0;
+	
 
 	// wird bis zu 60x pro Sekunde aufgerufen.
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
@@ -205,3 +208,10 @@ public:
 		GameWindow window;
 		window.show();
 	}
+
+
+	/*Links:
+	https://github.com/ChrisKraft1999/dhbw-objektorientierung
+	https://www.libgosu.org/cpp/struct_gosu_1_1_touch.html
+	https://de.wikibooks.org/wiki/C%2B%2B-Programmierung:_Vector
+	*/
