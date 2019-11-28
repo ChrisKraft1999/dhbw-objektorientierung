@@ -78,8 +78,8 @@ class GameWindow : public Gosu::Window
 	Schuss schuss1;
 	Figur Spieler;
 	std::list<Figur> Gegnerliste_1;
-	std::vector<Schuss> s;
 	int i = 0;
+	int cnt = 0;
 	int Anzahl_Gegner = 12;
 
 
@@ -116,7 +116,10 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-
+		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
+			i->positioniere(i->x_pos, i->y_pos + 0.5);
+		}
+		
 		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
 		
 		// Postion von Spieler mit w,a,s,d anpassen
@@ -138,6 +141,12 @@ public:
 			schuss1.y_pos = Spieler.y_pos;
 		}
 		schuss1.update();
+
+		cnt++;
+		if (cnt == 120) {
+
+			cnt = 0;
+		}
 	};
 };
 	// C++ Hauptprogramm
