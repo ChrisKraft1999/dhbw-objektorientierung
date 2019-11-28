@@ -17,13 +17,13 @@ const int y_groesse_rahmen = 800;
 
 class Figur {
 public:
-	int x_pos;
-	int y_pos;
+	double x_pos;
+	double y_pos;
 	int x_laenge;
 	int y_laenge;
 	int leben = 2;
 	Gosu::Image bild;
-	void positioniere(int x = 100, int y = 100) {
+	void positioniere(double x = 100, double y = 100) {
 		this-> x_laenge = bild.width(); // holt Figurbreite
 		this-> y_laenge = bild.height(); // holt Figurhoehe
 		if (x >= (x_groesse_rahmen - x_laenge)) {
@@ -138,21 +138,17 @@ public:
 			Spieler.x_pos += 2;
 		}
 		// Schießen
+		cnt++;
 		if (input().down(Gosu::MS_LEFT)) {
-			Schussliste.push_back(Schuss());
-			Schussliste.back().x_pos = Spieler.x_pos + 24;
-			Schussliste.back().y_pos = Spieler.y_pos;
+			if (cnt >= 30) {
+				Schussliste.push_back(Schuss());
+				Schussliste.back().x_pos = Spieler.x_pos + 24;
+				Schussliste.back().y_pos = Spieler.y_pos;
+				cnt = 0;
+			}
 		}
-		//schuss1.update();
 		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
 			i->update();
-		}
-		schuss1.update();
-
-		cnt++;
-		if (cnt == 120) {
-
-			cnt = 0;
 		}
 	};
 };
