@@ -69,7 +69,7 @@ public:
 	}
 
 	void update() {
-		y_pos -= 2;
+		y_pos -= 5;
 	}
 };
 
@@ -110,7 +110,6 @@ public:
 		Gegner11.leben_geben();
 		Gegner12.leben_geben();	
 	}
-	Figur Spieler, Gegner1;
 	Schuss schuss1;
 	Figur Spieler, Gegner1, Gegner2, Gegner3, Gegner4, Gegner5, Gegner6, Gegner7, Gegner8, Gegner9, Gegner10, Gegner11, Gegner12;
 
@@ -192,6 +191,7 @@ public:
 		if (input().down(Gosu::Button::Button(7))) {
 			Spieler.x_pos += 2;
 		}
+		// Schieﬂen
 		if (input().down(Gosu::MS_LEFT)) {
 			schuss1.x_pos = Spieler.x_pos + 24;
 			schuss1.y_pos = Spieler.y_pos;
