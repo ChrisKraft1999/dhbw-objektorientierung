@@ -77,6 +77,7 @@ class GameWindow : public Gosu::Window
 {
 	Figur Spieler;
 	std::list<Figur> Gegnerliste_1;
+	std::list<Figur> Gegnerliste_2;
 	std::list<Schuss> Schussliste;
 	int i = 0;
 	int cnt = 0;
@@ -92,6 +93,17 @@ public:
 		for (int i = 0; i < Anzahl_Gegner; i++){
 			Gegnerliste_1.push_back(Figur("GegnerTyp1.png"));
 			Gegnerliste_1.back().positioniere(i * 50, 0);
+		}
+
+		for (int i = 0; i < Anzahl_Gegner; i++) {
+			Gegnerliste_2.push_back(Figur("GegnerTyp1.png"));
+			if (i <= ((Anzahl_Gegner/2)-1)) {
+				
+				Gegnerliste_2.back().positioniere(i * 50, i * 50);
+			}
+			else {
+				Gegnerliste_2.back().positioniere(i * 50, (Anzahl_Gegner * 50) - (i * 50) - 50 );
+			}
 		}
 
 		set_caption("Github Test"); // Name lautet nicht Qwertz
@@ -127,6 +139,9 @@ public:
 	{
 		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
 			i->positioniere(i->x_pos, i->y_pos + 0.5);
+		}
+		if (Gegnerliste_1.begin() == Gegnerliste_1.end()) {
+			Gegnerliste_1 = Gegnerliste_2;
 		}
 		
 		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
