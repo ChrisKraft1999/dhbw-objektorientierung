@@ -190,8 +190,6 @@ public:
 				game_over = TRUE;
 			}
 		}
-
-		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
 		
 		// Postion von Spieler mit w,a,s,d anpassen
 		if (input().down(Gosu::Button::Button(26))) {
@@ -207,6 +205,9 @@ public:
 		if (input().down(Gosu::Button::Button(7))) {
 			Spieler.x_pos += 2;
 		}
+
+		// Neue postion übernehmen
+		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
 
 		// Schießen
 		// Schuss cooldown
