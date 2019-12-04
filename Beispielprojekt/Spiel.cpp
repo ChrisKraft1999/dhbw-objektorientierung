@@ -76,13 +76,14 @@ public:
 class GameWindow : public Gosu::Window
 {
 	Figur Spieler;
+	std::list<Figur> Gegnerliste_0;
 	std::list<Figur> Gegnerliste_1;
 	std::list<Figur> Gegnerliste_2;
 	std::list<Schuss> Schussliste;
 	int i = 0;
 	int cnt = 0;
 	double tempo = 0.5;
-	int level = 1; 
+	int level = 0; 
 	int Anzahl_Gegner = 12;
 
 
@@ -120,10 +121,9 @@ public:
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
 	// dann werden `draw` Aufrufe ausgelassen und die Framerate sinkt
 	void draw() override {
-		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
+		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->bild.draw(i->x_pos, i->y_pos, 0.0);
 		}
-		
 		
 		if (game_over == TRUE) {
 			gameover.draw(90, 259, 0.0);
@@ -139,11 +139,11 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
-		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
+		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->positioniere(i->x_pos, i->y_pos + tempo);
 		}
 		
-		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
+		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			if (i->y_pos >= 750) {
 				game_over = TRUE;
 			}
@@ -181,14 +181,14 @@ public:
 
 		auto i = Schussliste.begin();
 		while ( i != Schussliste.end()) {
-			auto j = Gegnerliste_1.begin();
-			while ( j != Gegnerliste_1.end() && i != Schussliste.end()) {
+			auto j = Gegnerliste_0.begin();
+			while ( j != Gegnerliste_0.end() && i != Schussliste.end()) {
 				if (i->x_pos >= j->x_pos && i->x_pos <= j->x_pos + j->x_laenge) {
 					if (i->y_pos <= j->y_pos + j->y_laenge && i->y_pos >= j->y_pos) {
 						j->treffer();
 						i = Schussliste.erase(i);
 						if (j->leben == 0) {
-							j = Gegnerliste_1.erase(j);
+							j = Gegnerliste_0.erase(j);
 							continue;
 						}
 					}
@@ -200,11 +200,11 @@ public:
 			}
 			if (i != Schussliste.end()) { i++; }
 		}
-		if (Gegnerliste_1.begin() == Gegnerliste_1.end()) {
+		if (Gegnerliste_0.begin() == Gegnerliste_0.end()) {
 			level++;
 			switch (level) {
-			case 1: tempo = 0.5; break;
-			case 2: tempo = 1.0; Gegnerliste_1 = Gegnerliste_2;  break;
+			case 1: tempo = 0.5; Gegnerliste_0 = Gegnerliste_1;  break;
+			case 2: tempo = 1.0; Gegnerliste_0 = Gegnerliste_2;  break;
 			default: tempo = 0.5;  break;
 			}
 		}// Wenn Gegner leer Level Erhöhen
