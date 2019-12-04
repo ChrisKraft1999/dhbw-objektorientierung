@@ -54,8 +54,8 @@ public:
 
 class Schuss {
 public:
-	int x_pos;
-	int y_pos;
+	double x_pos;
+	double y_pos;
 	
 	Schuss(int x_pos, int y_pos) {
 		this->x_pos = x_pos;
@@ -90,9 +90,10 @@ class GameWindow : public Gosu::Window
 public:
 	Gosu::Image gameover;
 	bool game_over = FALSE;
+	
 	GameWindow() : Window(x_groesse_rahmen, y_groesse_rahmen), Spieler("SpielerTyp1.png"), gameover("game-over.jpg")
 	{
-		
+		Gosu::Font font(10);
 		for (int i = 0; i < Anzahl_Gegner; i++){
 			Gegnerliste_1.push_back(Figur("GegnerTyp1.png"));
 			Gegnerliste_1.back().positioniere(i * 50, 0);
@@ -124,7 +125,6 @@ public:
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->bild.draw(i->x_pos, i->y_pos, 0.0);
 		}
-		
 		if (game_over == TRUE) {
 			gameover.draw(90, 259, 0.0);
 		}
@@ -139,6 +139,11 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+		if (input().down(Gosu::Button::Button(21))) {
+			level = 0;
+			game_over = FALSE;
+			Gegnerliste_0.clear();
+		}
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->positioniere(i->x_pos, i->y_pos + tempo);
 		}
