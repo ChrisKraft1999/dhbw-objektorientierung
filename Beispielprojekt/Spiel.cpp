@@ -81,6 +81,8 @@ class GameWindow : public Gosu::Window
 	std::list<Schuss> Schussliste;
 	int i = 0;
 	int cnt = 0;
+	double tempo = 0.5;
+	int level = 1; 
 	int Anzahl_Gegner = 12;
 
 
@@ -131,10 +133,7 @@ public:
 	void update() override
 	{
 		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
-			i->positioniere(i->x_pos, i->y_pos + 0.5);
-		}
-		if (Gegnerliste_1.begin() == Gegnerliste_1.end()) {
-			Gegnerliste_1 = Gegnerliste_2;
+			i->positioniere(i->x_pos, i->y_pos + tempo);
 		}
 		
 		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
@@ -199,6 +198,14 @@ public:
 			//i++;
 			//std::cout << "i==end? nach i++ " << int(i == Schussliste.end()) << std::endl;
 		}
+		if (Gegnerliste_1.begin() == Gegnerliste_1.end()) {
+			level++;
+			switch (level) {
+			case 1: tempo = 0.5; break;
+			case 2: tempo = 1.0; Gegnerliste_1 = Gegnerliste_2;  break;
+			default: tempo = 0.5;  break;
+			}
+		}// Wenn Gegner leer Level Erhöhen
 	};
 };
 	// C++ Hauptprogramm
