@@ -54,8 +54,8 @@ public:
 
 class Schuss {
 public:
-	int x_pos;
-	int y_pos;
+	double x_pos;
+	double y_pos;
 	
 	Schuss(int x_pos, int y_pos) {
 		this->x_pos = x_pos;
@@ -95,28 +95,43 @@ public:
 	GameWindow() : Window(x_groesse_rahmen, y_groesse_rahmen), Spieler("SpielerTyp1.png"), gameover("game-over.jpg")
 	{
 		// Gegnerwelle 1
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < Anzahl_Gegner; i++) {
 			Gegnerliste_1.push_back(Figur("GegnerTyp1.png"));
-			Gegnerliste_1.back().positioniere(i * 60, 0);
+			Gegnerliste_1.back().positioniere(i * 50, 0);
 		}
 		// Gegnerwelle 2
 		for (int i = 0; i < Anzahl_Gegner; i++){
 			Gegnerliste_2.push_back(Figur("GegnerTyp1.png"));
-			Gegnerliste_2.back().positioniere(i * 50, 0);
+			if (i % 2) {
+				Gegnerliste_2.back().positioniere(i * 50, 0);
+			}
+			else {
+				Gegnerliste_2.back().positioniere(i * 50, 50);
+			}
 		}
 		// Gegnerwelle 3
 		for (int i = 0; i < Anzahl_Gegner; i++) {
 			Gegnerliste_3.push_back(Figur("GegnerTyp1.png"));
-			if (i <= ((Anzahl_Gegner/2)-1)) {
-				
-				Gegnerliste_3.back().positioniere(i * 50, i * 50);
+			if (i == ((Anzahl_Gegner / 2) -1)) {
+				Gegnerliste_3.back().positioniere((i-1) * 50, 50);
+			}
+			else if (i == (Anzahl_Gegner / 2)) {
+				Gegnerliste_3.back().positioniere((i + 1) * 50, 50);
 			}
 			else {
-				Gegnerliste_3.back().positioniere(i * 50, (Anzahl_Gegner * 50) - (i * 50) - 50 );
+				Gegnerliste_3.back().positioniere(i * 50, 0);
 			}
 		}
 		// Gegnerwelle 4
-
+		for (int i = 0; i < Anzahl_Gegner; i++) {
+			Gegnerliste_4.push_back(Figur("GegnerTyp1.png"));
+			if (i <= ((Anzahl_Gegner / 2) - 1)) {
+				Gegnerliste_4.back().positioniere(i * 50, i * 50);
+			}
+			else {
+				Gegnerliste_4.back().positioniere(i * 50, (Anzahl_Gegner * 50) - (i * 50) - 50);
+			}
+		}
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 		Spieler.positioniere(275, 725); // Spieler spawnen
 		
@@ -225,7 +240,7 @@ public:
 			case 1: tempo = 0.5; Gegnerliste_0 = Gegnerliste_1;  break;
 			case 2: tempo = 1.0; Gegnerliste_0 = Gegnerliste_2;  break;
 			case 3: tempo = 1.5; Gegnerliste_0 = Gegnerliste_3;  break;
-			case 4: tempo = 2.0; Gegnerliste_0 = Gegnerliste_4;  break;
+			case 4: tempo = 1.0; Gegnerliste_0 = Gegnerliste_4;  break;
 			default: tempo = 0.5;  break;
 			}
 		}
