@@ -81,6 +81,7 @@ class GameWindow : public Gosu::Window
 	std::list<Figur> Gegnerliste_2;
 	std::list<Figur> Gegnerliste_3;
 	std::list<Figur> Gegnerliste_4;
+	std::list<Figur> Gegnerliste_5;
 	std::list<Schuss> Schussliste;
 	int i = 0;
 	int cnt = 0;
@@ -132,6 +133,20 @@ public:
 				Gegnerliste_4.back().positioniere(i * 50, (Anzahl_Gegner * 50) - (i * 50) - 50);
 			}
 		}
+		// Gegnerwelle 5
+		for (int i = 0; i < (Anzahl_Gegner + 10); i++) {
+			Gegnerliste_5.push_back(Figur("GegnerTyp1.png"));
+			if (i < Anzahl_Gegner) {
+				Gegnerliste_5.back().positioniere(i * 50, 0);
+			}
+			else if (i <= (Anzahl_Gegner + 4)) {
+				Gegnerliste_5.back().positioniere((i - Anzahl_Gegner) * 50 + 50, (i - Anzahl_Gegner) * 50 + 50);
+			}
+			else {
+				Gegnerliste_5.back().positioniere(((i + 1) - Anzahl_Gegner) * 50, (Anzahl_Gegner * 50) - (((i + 1) - Anzahl_Gegner) * 50) - 50);
+			}
+		}
+
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 		Spieler.positioniere(275, 725); // Spieler spawnen
 		
@@ -239,8 +254,9 @@ public:
 			switch (level) {
 			case 1: tempo = 0.5; Gegnerliste_0 = Gegnerliste_1;  break;
 			case 2: tempo = 1.0; Gegnerliste_0 = Gegnerliste_2;  break;
-			case 3: tempo = 1.5; Gegnerliste_0 = Gegnerliste_3;  break;
+			case 3: tempo = 1.0; Gegnerliste_0 = Gegnerliste_3;  break;
 			case 4: tempo = 1.0; Gegnerliste_0 = Gegnerliste_4;  break;
+			case 5: tempo = 1.0; Gegnerliste_0 = Gegnerliste_5;  break;
 			default: tempo = 0.5;  break;
 			}
 		}
