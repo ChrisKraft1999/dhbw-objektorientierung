@@ -93,6 +93,7 @@ class GameWindow : public Gosu::Window
 public:
 	Gosu::Image gameover;
 	bool game_over = FALSE;
+	
 	GameWindow() : Window(x_groesse_rahmen, y_groesse_rahmen), Spieler("SpielerTyp1.png"), gameover("game-over.jpg")
 	{
 		// Gegnerwelle 1
@@ -179,6 +180,11 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+		if (input().down(Gosu::Button::Button(21))) {
+			level = 0;
+			game_over = FALSE;
+			Gegnerliste_0.clear();
+		}
 		// Gegner bewegen
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->positioniere(i->x_pos, i->y_pos + tempo);
