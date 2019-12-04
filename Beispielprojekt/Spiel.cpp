@@ -79,10 +79,12 @@ class GameWindow : public Gosu::Window
 	std::list<Figur> Gegnerliste_0;
 	std::list<Figur> Gegnerliste_1;
 	std::list<Figur> Gegnerliste_2;
+	std::list<Figur> Gegnerliste_3;
+	std::list<Figur> Gegnerliste_4;
 	std::list<Schuss> Schussliste;
 	int i = 0;
 	int cnt = 0;
-	double tempo = 0.5;
+	double tempo = 0;
 	int level = 0; 
 	int Anzahl_Gegner = 12;
 
@@ -92,27 +94,32 @@ public:
 	bool game_over = FALSE;
 	GameWindow() : Window(x_groesse_rahmen, y_groesse_rahmen), Spieler("SpielerTyp1.png"), gameover("game-over.jpg")
 	{
-		
-		for (int i = 0; i < Anzahl_Gegner; i++){
+		// Gegnerwelle 1
+		for (int i = 0; i < 10; i++) {
 			Gegnerliste_1.push_back(Figur("GegnerTyp1.png"));
-			Gegnerliste_1.back().positioniere(i * 50, 0);
+			Gegnerliste_1.back().positioniere(i * 60, 0);
 		}
-
-		for (int i = 0; i < Anzahl_Gegner; i++) {
+		// Gegnerwelle 2
+		for (int i = 0; i < Anzahl_Gegner; i++){
 			Gegnerliste_2.push_back(Figur("GegnerTyp1.png"));
+			Gegnerliste_2.back().positioniere(i * 50, 0);
+		}
+		// Gegnerwelle 3
+		for (int i = 0; i < Anzahl_Gegner; i++) {
+			Gegnerliste_3.push_back(Figur("GegnerTyp1.png"));
 			if (i <= ((Anzahl_Gegner/2)-1)) {
 				
-				Gegnerliste_2.back().positioniere(i * 50, i * 50);
+				Gegnerliste_3.back().positioniere(i * 50, i * 50);
 			}
 			else {
-				Gegnerliste_2.back().positioniere(i * 50, (Anzahl_Gegner * 50) - (i * 50) - 50 );
+				Gegnerliste_3.back().positioniere(i * 50, (Anzahl_Gegner * 50) - (i * 50) - 50 );
 			}
 		}
+		// Gegnerwelle 4
 
 		set_caption("Github Test"); // Name lautet nicht Qwertz
 		Spieler.positioniere(275, 725); // Spieler spawnen
 		
-		// Figuren existent machen
 		Spieler.leben_geben(10);
 	}
 	
@@ -121,15 +128,18 @@ public:
 	// Wenn die Grafikkarte oder der Prozessor nicht mehr hinterherkommen,
 	// dann werden `draw` Aufrufe ausgelassen und die Framerate sinkt
 	void draw() override {
+		// Zeichne Gegner
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->bild.draw(i->x_pos, i->y_pos, 0.0);
 		}
-		
+		// Zeichne Gameover
 		if (game_over == TRUE) {
 			gameover.draw(90, 259, 0.0);
 		}
 		else {
+			// Zeichne Spieler
 			Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
+			// Zeichne Schüsse
 			for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
 				i->draw();
 			}
@@ -139,12 +149,14 @@ public:
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
 	{
+		// Gegner bewegen
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
 			i->positioniere(i->x_pos, i->y_pos + tempo);
 		}
 		
+		// Gameover Test
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
-			if (i->y_pos >= 750) {
+			if (i->y_pos >= (y_groesse_rahmen - i->y_laenge)) {
 				game_over = TRUE;
 			}
 		}
@@ -165,7 +177,9 @@ public:
 		if (input().down(Gosu::Button::Button(7))) {
 			Spieler.x_pos += 2;
 		}
+
 		// Schießen
+		// Schuss cooldown
 		cnt++;
 		if (input().down(Gosu::MS_LEFT)) {
 			if (cnt >= 30) {
@@ -175,10 +189,13 @@ public:
 				cnt = 0;
 			}
 		}
+
+		// Schuss bewegt sich
 		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
 			i->update();
-		}
+		} 
 
+		// Auf Treffer testen
 		auto i = Schussliste.begin();
 		while ( i != Schussliste.end()) {
 			auto j = Gegnerliste_0.begin();
@@ -200,14 +217,18 @@ public:
 			}
 			if (i != Schussliste.end()) { i++; }
 		}
+
+		// Wenn Gegner leer Level Erhöhen
 		if (Gegnerliste_0.begin() == Gegnerliste_0.end()) {
 			level++;
 			switch (level) {
 			case 1: tempo = 0.5; Gegnerliste_0 = Gegnerliste_1;  break;
 			case 2: tempo = 1.0; Gegnerliste_0 = Gegnerliste_2;  break;
+			case 3: tempo = 1.5; Gegnerliste_0 = Gegnerliste_3;  break;
+			case 4: tempo = 2.0; Gegnerliste_0 = Gegnerliste_4;  break;
 			default: tempo = 0.5;  break;
 			}
-		}// Wenn Gegner leer Level Erhöhen
+		}
 	};
 };
 	// C++ Hauptprogramm
