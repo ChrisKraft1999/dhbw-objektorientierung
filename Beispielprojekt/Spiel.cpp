@@ -84,8 +84,9 @@ class GameWindow : public Gosu::Window
 
 
 public:
-
-		GameWindow() : Window(x_groesse_rahmen, y_groesse_rahmen), Spieler("SpielerTyp1.png")
+	Gosu::Image gameover;
+	bool game_over = FALSE;
+	GameWindow() : Window(x_groesse_rahmen, y_groesse_rahmen), Spieler("SpielerTyp1.png"), gameover("game-over.jpg")
 	{
 		
 		for (int i = 0; i < Anzahl_Gegner; i++){
@@ -108,11 +109,18 @@ public:
 		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
 			i->bild.draw(i->x_pos, i->y_pos, 0.0);
 		}
-		for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
-			i->draw();
+		
+		
+		if (game_over == TRUE) {
+			gameover.draw(90, 259, 0.0);
 		}
-		Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
+		else {
+			Spieler.bild.draw(Spieler.x_pos, Spieler.y_pos, 0.0);
+			for (auto i = Schussliste.begin(); i != Schussliste.end(); i++) {
+				i->draw();
+			}
 		}
+	}
 	
 	// Wird 60x pro Sekunde aufgerufen
 	void update() override
@@ -121,6 +129,12 @@ public:
 			i->positioniere(i->x_pos, i->y_pos + 0.5);
 		}
 		
+		for (auto i = Gegnerliste_1.begin(); i != Gegnerliste_1.end(); i++) {
+			if (i->y_pos >= 750) {
+				game_over = TRUE;
+			}
+		}
+
 		Spieler.positioniere(Spieler.x_pos, Spieler.y_pos);
 		
 		// Postion von Spieler mit w,a,s,d anpassen
@@ -154,34 +168,23 @@ public:
 		auto i = Schussliste.begin();
 		while ( i != Schussliste.end()) {
 			auto j = Gegnerliste_1.begin();
-			
-			
 			while ( j != Gegnerliste_1.end() && i != Schussliste.end()) {
-				//std::cout << "Start gegnerschleife" << std::endl;
 				if (i->x_pos >= j->x_pos && i->x_pos <= j->x_pos + j->x_laenge) {
 					if (i->y_pos <= j->y_pos + j->y_laenge && i->y_pos >= j->y_pos) {
 						j->treffer();
 						i = Schussliste.erase(i);
-						//std::cout << "i==end? " << int(i == Schussliste.end()) << std::endl;
 						if (j->leben == 0) {
-						//	std::cout << "vor Gegner lösachen" << std::endl;
 							j = Gegnerliste_1.erase(j);
 							continue;
 						}
-						//std::cout << "Nach Gegner lösachen" << std::endl;
 					}
 				}
 				else if (i->y_pos <= 0) {
 					i = Schussliste.erase(i);
 				}
-				//std::cout << "Vor j++" << std::endl;
 				j++;
-				//std::cout << "Nach j++" << std::endl;
 			}
-			//std::cout << "Vor i++" << std::endl;
 			if (i != Schussliste.end()) { i++; }
-			//i++;
-			//std::cout << "i==end? nach i++ " << int(i == Schussliste.end()) << std::endl;
 		}
 	};
 };
