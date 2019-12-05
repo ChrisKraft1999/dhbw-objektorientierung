@@ -184,6 +184,8 @@ public:
 			level = 0;
 			game_over = FALSE;
 			Gegnerliste_0.clear();
+			Schussliste.clear();
+			Spieler.positioniere(275, 725);
 		}
 		// Gegner bewegen
 		for (auto i = Gegnerliste_0.begin(); i != Gegnerliste_0.end(); i++) {
